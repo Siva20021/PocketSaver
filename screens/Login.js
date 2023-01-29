@@ -8,28 +8,55 @@ import {
 } from "react-native";
 import React from "react";
 import { Dimensions } from "react-native";
+import axios from "axios";
 import { useFonts } from "expo-font";
 import { useEffect, useCallback } from "react";
+// import Form from "react-native-form";
 import { useForm } from "react-hook-form";
 import { TextInput } from "react-native-gesture-handler";
+
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 const Login = ({ navigate }) => {
   const { register, handleSubmit, setValue } = useForm();
-  const onSubmit = useCallback((formData) => {
-    const { email, password } = formData;
-    // firebase
-    //   .auth()
-    //   .signInWithEmailAndPassword(email, password)
-    //   .then((result) => {
-    //     console.log(result);
-    //     navigation.navigate("AccountSuccess");
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   });
-    console.log(formData);
-  }, []);
+  // const onSubmit = useCallback(async (formData) => {
+  //   const { email, password } = formData;
+  //   formData.preventDefault();
+  //   try {
+  //     const res = await axios.post(
+  //       "https://pocket-saver.onrender.com/users/login",
+  //       { email, password }
+  //     );
+  //     console.log(res.data.token);
+  //   } catch (err) {
+  //     console.log(err);
+  //   }
+
+  //   // firebase
+  //   //   .auth()
+  //   //   .signInWithEmailAndPassword(email, password)
+  //   //   .then((result) => {
+  //   //     console.log(result);
+  //   //     navigation.navigate("AccountSuccess");
+  //   //   })
+  //   //   .catch((err) => {
+  //   //     console.log(err);
+  //   //   });
+  //   // console.log(formData);
+  // }, []);
+  const onSubmit = useCallback(async (event) => {
+    event.preventDefault();
+    const { email, password } = event.target.elements;
+    try {
+      const res = await axios.post(
+        "https://pocket-saver.onrender.com/users/login",
+        { email: email.value, password: password.value }
+      );
+      return Promise.resolve(res);
+    } catch (err) {
+      return Promise.reject(err);
+    }
+  });
 
   const onChangeField = useCallback(
     (name) => (text) => {
@@ -66,6 +93,7 @@ const Login = ({ navigate }) => {
         />
         <View style={styles.heroContainer}>
           <Text style={styles.heroText}>Welcome Back</Text>
+
           <ImageBackground
             source={require("../assets/EmailInput.png")}
             style={styles.loginInput}
