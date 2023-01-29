@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import { DataTable } from "react-native-paper";
+
 const TableComponent = () => {
   //   const [page, setPage] = useState(0);
   //   const [itemsPerPage, setItemsPerPage] = ReactuseState(optionsPerPage[0]);

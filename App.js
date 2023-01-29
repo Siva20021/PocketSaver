@@ -3,10 +3,10 @@ import { StyleSheet, Text, View } from "react-native";
 import { Provider as PaperProvider } from "react-native-paper";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-// import { Provider } from "react-redux";
+//import { Provider } from "react-redux";
 import Login from "./screens/Login";
 import Signup from "./screens/Signup";
-
+import Record from "./screens/RecordPage";
 import Home from "./screens/Home";
 import UserProfile from "./screens/UserProfile";
 import Billing from "./screens/Billing";
@@ -16,13 +16,18 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   return (
-    // <Provider store={store}>
+    //<Provider store={store}>
     <PaperProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName="Login">
           <Stack.Screen
             name="Login"
             component={Login}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Record"
+            component={Record}
             options={{ headerShown: false }}
           />
           <Stack.Screen
@@ -45,15 +50,15 @@ export default function App() {
             component={Billing}
             options={{ headerShown: false }}
           />
-          <Stack.Screen
+          {/* <Stack.Screen
             name="RecordPage"
             component={RecordPage}
             options={{ headerShown: false }}
-          />
+          /> */}
         </Stack.Navigator>
       </NavigationContainer>
     </PaperProvider>
-    // </Provider>
+    //</Provider>
   );
 }
 

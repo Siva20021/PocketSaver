@@ -9,8 +9,9 @@ import { useFonts } from "expo-font";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
 import React from "react";
+import BottomBar from "../components/BottomBar";
 
-const UserProfile = () => {
+const UserProfile = ({ navigation }) => {
   const [loaded] = useFonts({
     Lato: require("../assets/fonts/Lato-Regular.ttf"),
     LatoBold: require("../assets/fonts/Lato-Bold.ttf"),
@@ -35,17 +36,22 @@ const UserProfile = () => {
       <View style={styles.profileDetails}>
         <View style={styles.Field}>
           <Text style={styles.h2Black}>FirstName</Text>
-          <Text style={styles.h2Gray}>Sivaramakrishnan</Text>
+          <Text style={styles.h2Gray}>Mugdha</Text>
         </View>
         <View style={styles.Field}>
           <Text style={styles.h2Black}>SecondName</Text>
-          <Text style={styles.h2Gray}>M</Text>
+          <Text style={styles.h2Gray}>Sharma</Text>
         </View>
         <View style={styles.Field}>
-          <Text style={styles.h2Black}>Email</Text>
+          <Text style={styles.h2Black}>UserName</Text>
           <Text numberOfLines={1} style={styles.h2Gray}>
-            sivaramakrishnan365@gmail.com
+            mugdha
           </Text>
+        </View>
+        <View style={{ marginTop: 150 }}>
+          <View>
+            <BottomBar />
+          </View>
         </View>
       </View>
     </View>

@@ -6,6 +6,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { Dimensions } from "react-native";
 import axios from "axios";
@@ -14,10 +15,11 @@ import { useEffect, useCallback } from "react";
 // import Form from "react-native-form";
 import { useForm } from "react-hook-form";
 import { TextInput } from "react-native-gesture-handler";
-
+import { Home } from "./Home";
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").height;
-const Login = ({ navigate }) => {
+
+const Login = ({ navigation }) => {
   const { register, handleSubmit, setValue } = useForm();
   // const onSubmit = useCallback(async (formData) => {
   //   const { email, password } = formData;
@@ -43,20 +45,40 @@ const Login = ({ navigate }) => {
   //   //     console.log(err);
   //   //   });
   //   // console.log(formData);
-  // }, []);
-  const onSubmit = useCallback(async (event) => {
-    event.preventDefault();
-    const { email, password } = event.target.elements;
+
+  const onSubmit = useCallback(async (formData) => {
+    // try {
+    //   const res = await axios.post(
+    //     "https://pocket-saver.onrender.com/users/login",
+    //     formData
+    //   );
+    //   console.log(res.data.token);
+    //   navigation.navigate("Home.js");
+    // } catch (err) {
+    //   console.error("An error occurred while logging in: ", err);
+    //   setError("Invalid email or password");
+    // }
+    const { email, password } = formData;
+    navigation.navigate("Home");
     try {
-      const res = await axios.post(
+      const response = await axios.post(
         "https://pocket-saver.onrender.com/users/login",
-        { email: email.value, password: password.value }
+        {
+          email,
+          password,
+        }
       );
-      return Promise.resolve(res);
-    } catch (err) {
-      return Promise.reject(err);
+
+      if (response.data.userExists) {
+        console.log(formData);
+        navigation.navigate("Home");
+      } else {
+        console.log("Invalid username or password");
+      }
+    } catch (error) {
+      console.log("User Logged in");
     }
-  });
+  }, []);
 
   const onChangeField = useCallback(
     (name) => (text) => {
@@ -77,7 +99,9 @@ const Login = ({ navigate }) => {
   if (!loaded) {
     return null;
   }
-
+  function handlePress() {
+    navigation.navigate("Home");
+  }
   return (
     <View style={styles.loginContainer}>
       <View style={styles.bgImage}>
@@ -104,7 +128,7 @@ const Login = ({ navigate }) => {
               keyboardType="email-address"
               textContentType="emailAddress"
               placeholder="Email"
-              onChangeText={onChangeField("email")}
+              onChangeText={(text) => setValue("email", text)}
             />
           </ImageBackground>
           <ImageBackground
@@ -115,7 +139,7 @@ const Login = ({ navigate }) => {
               secureTextEntry
               autoCompleteType="password"
               placeholder="Password"
-              onChangeText={onChangeField("password")}
+              onChangeText={(text) => setValue("password", text)}
               style={styles.placeholderText}
             />
           </ImageBackground>
@@ -134,6 +158,7 @@ const Login = ({ navigate }) => {
             <Pressable>
               <Text
                 style={{ fontFamily: "Lato", color: "#3944BC", paddingTop: 10 }}
+                onPress={handlePress}
               >
                 Signup
               </Text>

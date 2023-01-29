@@ -2,7 +2,14 @@ import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { BarChart } from "react-native-chart-kit";
 const data = {
-  labels: ["January", "February", "March", "April", "May", "June"],
+  labels: [
+    "24th Jan",
+    "25th Jan",
+    "26th Jan",
+    "27th Jan",
+    "Yesterday",
+    "Today",
+  ],
   datasets: [
     {
       data: [20, 45, 28, 80, 99, 43],

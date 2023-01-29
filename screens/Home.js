@@ -11,7 +11,8 @@ import { ScrollView, TouchableOpacity } from "react-native-gesture-handler";
 import DropdownComponent from "../components/DropdownComponent";
 import ChartsMonthly from "../components/Charts/ChartsMonthly";
 import ChartsDaily from "../components/Charts/ChartsDaily";
-const Home = () => {
+import BottomBar from "../components/BottomBar";
+const Home = ({ navigation }) => {
   const [visibility, setVisibility] = useState(false);
   const [name, setName] = useState("");
   const [loaded] = useFonts({
@@ -32,7 +33,7 @@ const Home = () => {
         >
           <Text style={styles.h1}>Hello,</Text>
           <Text maxLength={4} style={styles.h2Gray}>
-            Sivaramakrishnan
+            Mugdha
           </Text>
         </ImageBackground>
         <View style={styles.amountSaved}>
@@ -44,7 +45,7 @@ const Home = () => {
               <Text style={styles.h2Black} onPress={() => setVisibility(true)}>
                 Amount Saved
               </Text>
-              {visibility ? <Text>300</Text> : null}
+              {visibility ? <Text> $900</Text> : null}
             </ImageBackground>
           </Pressable>
         </View>
@@ -61,6 +62,7 @@ const Home = () => {
           </ScrollView>
         </View>
       </View>
+      <BottomBar />
     </ScrollView>
   );
 };

@@ -11,10 +11,11 @@ import DropdownComponent from "../components/DropdownComponent";
 import { useFonts } from "expo-font";
 import { ScrollView } from "react-native-gesture-handler";
 import TableComponent from "../components/TableComponent";
+import BottomBar from "../components/BottomBar";
 
 const windowWidth = Dimensions.get("window").width;
 const windowHeight = Dimensions.get("window").width;
-const Billing = () => {
+const Billing = ({ navigation }) => {
   const [loaded] = useFonts({
     Lato: require("../assets/fonts/Lato-Regular.ttf"),
     LatoBold: require("../assets/fonts/Lato-Bold.ttf"),
@@ -41,6 +42,7 @@ const Billing = () => {
         </ImageBackground>
         <ScrollView></ScrollView>
       </View>
+      <BottomBar />
     </View>
   );
 };
